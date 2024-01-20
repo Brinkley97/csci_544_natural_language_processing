@@ -1,3 +1,11 @@
 
 .DS_Store
 *.csv
+datasets/*
+.ipynb_checkpoints/*
+1.zip
+hw_1-text_classification_for_sentiment_analysis/converTsvToCsv.ipynb
+hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/converTsvToCsv-checkpoint.ipynb
+play/.ipynb_checkpoints/Untitled-checkpoint.ipynb
+play/.ipynb_checkpoints/gettingStartedNltkForNlp-checkpoint.ipynb
+play/.ipynb_checkpoints/
