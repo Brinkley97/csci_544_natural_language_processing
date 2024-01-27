@@ -1,12 +1,11 @@
 
-.DS_Store
-*.csv
-.zip
 
+*.zip
+*.csv
+*.DS_Store
+*.ipynb_checkpoints
 
 datasets/*
-
-.ipynb_checkpoints
 
 play/.ipynb_checkpoints/
 play/.ipynb_checkpoints/Untitled-checkpoint.ipynb
