@@ -34,24 +34,34 @@ class NLP_File(NLP_General):
             print("No DataFrame loaded.")
     
     ## Euclidean Distance
-    
-    def euclidean_function(self, vectors):
+    def get_euclidean_distance(self, vectors):
         euclideans = []
         euc=euclidean_distances(vectors[0], vectors[1])
         euclideans.append(euc)
 
         return euclideans
 
+    ## Cosine Similarity
+    def get_cosine_similarity(self, trans):
+        cos = []
+        cos.append(cosine_similarity(trans[0], trans[1]))
+
+        return cos
+    
+    ## Manhattan Distance
+    def get_manhatten_distance(self, trans):
+        manhatten = []
+        manhatten.append(pairwise_distances(trans[0], trans[1], metric = 'manhattan'))
+
+        return manhatten
     
     def convert(self, dist):
-        new_df = pd.DataFrame()
         arr = np.array(dist)
         arr = np.concatenate(arr, axis=0)
         arr = np.concatenate(arr, axis=0)
-        
-        new_df['euclidean'] = arr
-
-        return new_df
+    
+        return arr
+    
     def tfidf(self, string1: str, string2: str):
         """"TF-IDF"""
         ques = []
@@ -70,10 +80,14 @@ class NLP_File(NLP_General):
         corpus = [string1, string2]
         trans = vect.transform(corpus)
     
-        edu = self.euclidean_function(trans)
+        edu = self.get_euclidean_distance(trans)
         edu_score = self.convert(edu)
-        # self.cosine(trans)
-        # self.manhatten_distance(trans)
 
-        return edu_score
+        cos = self.get_cosine_similarity(trans)
+        cos_score = self.convert(cos)
+
+        manh = self.get_manhatten_distance(trans)
+        manh_score = self.convert(manh)
+
+        return edu_score, cos_score, manh_score
 
