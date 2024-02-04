@@ -3,7 +3,7 @@
 *.zip
 *.csv
 *.DS_Store
-*cpython-312.pyc
+*.pyc
 *.ipynb_checkpoints
 
 
@@ -18,3 +18,4 @@ hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/HW1-CSCI544-c
 hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/HW1-CSCI544-checkpoint.ipynb
 
 
+play/__pycache__/data_loader.cpython-311.pyc
