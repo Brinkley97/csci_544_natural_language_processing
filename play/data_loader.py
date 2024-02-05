@@ -7,7 +7,11 @@ import torch
 import numpy as np
 import pandas as pd
 
+from typing import Iterator
+
 from torch.utils.data import DataLoader, Dataset
+from torch.utils.data.sampler import SequentialSampler, RandomSampler, SubsetRandomSampler
+
 
 class Dataset(object):
     """An abstract class representing a dataset. All other datasets should be a subclass of this class. All subclasses should override 
@@ -24,6 +28,14 @@ class Dataset(object):
 
     def __add__(self, other):
         return ConcatDataset([self, other])
+    
+    def select_sample_method(self):
+        raise NotImplementedError("Subclasses must implement my_abstract_method")
+
+    def prepare_data_loader(self):
+        raise NotImplementedError("Subclasses must implement my_abstract_method")
+
+
     
 class TrainMNIST(Dataset):
     
@@ -48,6 +60,30 @@ class TrainMNIST(Dataset):
             image = self.transform(image)
 
         return image, label
+    
+    def select_sample_method(self, sample_method: str, sampler_idx: int):
+
+        if sample_method == 'sequential':
+            print("Sampling Method -- ",sample_method)
+            sampler = SequentialSampler(sampler_idx)
+            return sampler
+        elif sample_method == 'subset':
+            print("Sampling Method -- ", sample_method)
+            sampler = SubsetRandomSampler(sampler_idx)
+            return sampler
+        elif sample_method == 'random':
+            print("Sampling Method -- ", sample_method)
+            sampler = RandomSampler(sampler_idx)
+            return sampler
+        
+    
+    def prepare_data_loader(self, batch_size: int, sample_method: str, sampler_idx: int, num_workers: int):
+        sample_order = self.select_sample_method(sample_method, sampler_idx)
+        loader = torch.utils.data.DataLoader(self, batch_size=batch_size, sampler=sample_order, num_workers=num_workers)
+        return loader
+    
+   
+
 
 class TestMNIST(Dataset):
     """Same as TrainMIST, except we don't retrun the label here"""
@@ -71,3 +107,7 @@ class TestMNIST(Dataset):
             image = self.transform(image)
 
         return image
+    
+    def prepare_data_loader(self, batch_size: int, num_workers: int):
+        loader = torch.utils.data.DataLoader(self, batch_size=batch_size, num_workers=num_workers)
+        return loader
