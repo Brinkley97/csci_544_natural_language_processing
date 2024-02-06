@@ -40,9 +40,13 @@ class Dataset(object):
 class TrainMNIST(Dataset):
     
     # initial processes like reading a csv file, assigning transforms
-    def __init__(self, file_path, transform=None):
+    def __init__(self, file_path, reshape_height: int, reshape_width: int, reshape_channels: int, transform=None):
         self.data = pd.read_csv(file_path)
+        self.reshape_height = reshape_height
+        self.reshape_width = reshape_width
+        self.reshape_channels = reshape_channels
         self.transform = transform
+        
 
     # return the of input data
     def __len__(self):
@@ -53,7 +57,7 @@ class TrainMNIST(Dataset):
         # load image as ndarray type (Height, Width, Channels)
         # be carefull for converting dtype to np.uint8 [Unsigned integer (0 to 255)]
         # in this example, we use ToTensor(), so we define the numpy array like (H, W, C)
-        image = self.data.iloc[index, 1:].values.astype(np.uint8).reshape((28, 28, 1))
+        image = self.data.iloc[index, 1:].values.astype(np.uint8).reshape((self.reshape_height, self.reshape_width, self.reshape_channels))
         label = self.data.iloc[index, 0]
 
         if self.transform is not None:
@@ -89,8 +93,11 @@ class TestMNIST(Dataset):
     """Same as TrainMIST, except we don't retrun the label here"""
     
 
-    def __init__(self, file_path, transform=None):
+    def __init__(self, file_path: str, reshape_height: int, reshape_width: int, reshape_channels: int, transform=None):
         self.data = pd.read_csv(file_path)
+        self.reshape_height = reshape_height
+        self.reshape_width = reshape_width
+        self.reshape_channels = reshape_channels
         self.transform = transform
 
   
@@ -101,7 +108,7 @@ class TestMNIST(Dataset):
         # load image as ndarray type (Height, Width, Channels)
         # be carefull for converting dtype to np.uint8 [Unsigned integer (0 to 255)]
         # in this example, we use ToTensor(), so we define the numpy array like (H, W, C)
-        image = self.data.iloc[index, 0:].values.astype(np.uint8).reshape((28, 28, 1))
+        image = self.data.iloc[index, 0:].values.astype(np.uint8).reshape((self.reshape_height, self.reshape_width, self.reshape_channels))
 
         if self.transform is not None:
             image = self.transform(image)
