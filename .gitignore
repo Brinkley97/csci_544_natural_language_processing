@@ -2,7 +2,7 @@
 *.pt
 *.zip
 *.csv
-*.pyc'
+*.pyc
 *.DS_Store
 *.ipynb_checkpoints
 
