@@ -1,9 +1,9 @@
 
-
+*.pt
 *.zip
 *.csv
+*.pyc'
 *.DS_Store
-*.pyc
 *.ipynb_checkpoints
 
 
@@ -16,6 +16,3 @@ play/.ipynb_checkpoints/gettingStartedNltkForNlp-checkpoint.ipynb
 hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/converTsvToCsv-checkpoint.ipynb
 hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/HW1-CSCI544-checkpoint.ipynb
 hw_1-text_classification_for_sentiment_analysis/.ipynb_checkpoints/HW1-CSCI544-checkpoint.ipynb
-
-
-play/__pycache__/data_loader.cpython-311.pyc
