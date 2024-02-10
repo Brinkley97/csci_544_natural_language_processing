@@ -3,9 +3,10 @@
 *.zip
 *.csv
 *.pyc
+*.html
 *.DS_Store
 *.ipynb_checkpoints
-
+*submit/
 
 datasets/*
 
